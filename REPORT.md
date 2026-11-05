@@ -77,7 +77,7 @@ def compare(directory, snapshot, history=None, report=None):
 Основное свидетельство: [examples/differences.json](examples/differences.json).
 Локальные тесты: **12 passed in 0.02s**. Ruff и справка CLI: успешно.
 Полный протокол: [examples/verification.txt](examples/verification.txt).
-Общий набор: **128 тестов пройдены на Python 3.12.14 и Python 3.11.16**.
+Общий набор: **94 тестов пройдены на Python 3.12.14 и Python 3.11.16**.
 Эти протоколы получены локально и не выдаются за GitHub Actions.
 
 ## Git и прослеживаемость
