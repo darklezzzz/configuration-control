@@ -1,0 +1,1 @@
+{'baseline': 'BL-001', 'date': '2026-11-05T11:37:12.480255+00:00', 'added': ['README.md'], 'removed': ['old.txt'], 'changed': ['app.py']}
