@@ -16,7 +16,7 @@
 Стек: Python 3.11/3.12, стандартная библиотека, pytest 8.3.5, ruff 0.11.13;
 сборщик hatchling 1.27.0. Зависимости фиксируются в pyproject.toml и uv.lock.
 Консольный интерфейс — src/configuration_control/cli.py, логика — src/configuration_control/core.py,
-тесты — tests/. Платформа задания 8 отдельно определяет схему в storage.py.
+тесты — tests/.
 
 ## Схема алгоритма
 
@@ -77,7 +77,7 @@ def compare(directory, snapshot, history=None, report=None):
 Основное свидетельство: [examples/differences.json](examples/differences.json).
 Локальные тесты: **12 passed in 0.02s**. Ruff и справка CLI: успешно.
 Полный протокол: [examples/verification.txt](examples/verification.txt).
-Общий набор: **94 тестов пройдены на Python 3.12.14 и Python 3.11.16**.
+Общий набор: **94 теста пройдены на Python 3.12.14 и Python 3.11.16**.
 Эти протоколы получены локально и не выдаются за GitHub Actions.
 
 ## Git и прослеживаемость
@@ -106,5 +106,6 @@ main
 Приложение выполняет локальные функциональные требования и имеет автоматизированные
 проверки. Реализованные практики SCM и организационные правила описаны в SCMP.md.
 Использование отдельных принципов ISO/IEC/IEEE 828:2012 не доказывает полного
-соответствия стандарту. GitHub-подтверждения, где они требуются, остаются отдельным
-внешним этапом до окончательной сдачи.
+соответствия стандарту. GitHub-подтверждения, где они требуются, собраны в CI_EVIDENCE.md.
+
+Репозиторий: [darklezzzz/configuration-control](https://github.com/darklezzzz/configuration-control).

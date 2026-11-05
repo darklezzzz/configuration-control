@@ -44,3 +44,7 @@ Git-доказательства: `git log --graph --oneline --all`, `git branch
 ## Ограничения
 
 Неизменяемость обеспечивается приложением (создание файла в режиме x), а не правами ОС. ID уникальны внутри каталога baseline. Во время сканирования файлы не блокируются; символьные ссылки исключены.
+
+## GitHub
+
+[darklezzzz/configuration-control](https://github.com/darklezzzz/configuration-control).
