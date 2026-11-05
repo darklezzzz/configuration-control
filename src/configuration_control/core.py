@@ -47,7 +47,7 @@ def read_baseline(path):
             if not isinstance(name, str) or not isinstance(item, dict) or "sha256" not in item:
                 raise ValueError("Неверная конфигурационная единица")
         return value
-    except (OSError, json.JSONDecodeError) as exc:
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
         raise ValueError("Baseline отсутствует или повреждена") from exc
 
 
@@ -65,7 +65,7 @@ def create_baseline(directory, snapshot, ident, approver, commit_hash, previous=
     for sibling in target.parent.glob("*.json"):
         try:
             existing = json.loads(sibling.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
+        except (OSError, UnicodeError, json.JSONDecodeError):
             continue
         if isinstance(existing, dict) and existing.get("id") == ident:
             raise ValueError("ID baseline уже зарегистрирован")
@@ -79,10 +79,16 @@ def create_baseline(directory, snapshot, ident, approver, commit_hash, previous=
     if previous and Path(previous).resolve().is_relative_to(root):
         ignore.append(Path(previous).resolve().relative_to(root).as_posix())
     files = scan(root, ignore)
-    items = {
-        name: dict(data, id="CI-" + hashlib.sha256(name.encode()).hexdigest()[:12], version="1.0.0")
-        for name, data in files.items()
-    }
+    items = {}
+    for name, data in files.items():
+        old = prior["items"].get(name) if prior else None
+        version = old.get("version", "1.0.0") if old else "1.0.0"
+        if old and old["sha256"] != data["sha256"]:
+            major, minor, patch = map(int, version.split("."))
+            version = f"{major}.{minor}.{patch + 1}"
+        items[name] = dict(
+            data, id="CI-" + hashlib.sha256(name.encode()).hexdigest()[:12], version=version
+        )
     value = {
         "id": ident,
         "date": datetime.now(timezone.utc).isoformat(),
