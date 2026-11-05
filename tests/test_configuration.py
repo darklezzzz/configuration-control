@@ -87,3 +87,13 @@ def test_history(sample, tmp_path):
     compare(root, snap, history=history)
     assert compare(root, snap, history=history)["added"] == []
     assert len(history.read_text().splitlines()) == 2
+
+
+def test_changed_unit_increments_version(sample):
+    root, snap = sample
+    (root / "a.txt").write_text("updated")
+    second = create_baseline(
+        root, snap.parent / "BL-002.json", "BL-002", "Reviewer", "b" * 40, snap
+    )
+    assert second["items"]["a.txt"]["version"] == "1.0.1"
+    assert second["items"]["a.txt"]["id"] == read_baseline(snap)["items"]["a.txt"]["id"]
